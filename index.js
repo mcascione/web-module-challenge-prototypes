@@ -28,13 +28,19 @@ Person.prototype.eat = function (food){
 };
 
 Person.prototype.poop = function (){
-  if (this.stomach.length = 0){
-  }
+  this.stomach = [];
 };
 
 Person.prototype.toString = function (){
   return `${this.name},${this.age}`;
 };
+
+// const miranda = new Person('Miranda', 32);
+// console.log(miranda.toString());
+// miranda.eat('pasta');
+// console.log(miranda.stomach);
+// miranda.poop();
+// console.log(miranda.stomach);
 
 /*
   TASK 2
@@ -63,6 +69,24 @@ Car.prototype.fill = function (gallons){
   this.tank += gallons;
 };
 
+Car.prototype.drive = function (distance){
+  const driveableMiles = this.tank * this.milesPerGallon;
+  if (distance <= driveableMiles){
+    this.odometer += distance;
+    this.tank -= (distance/this.milesPerGallon);
+  } else {
+    this.odometer += driveableMiles;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
+};
+
+// const car1 = new Car('honda', 20);
+// console.log(car1);
+// console.log(car1.fill(10));
+// console.log(car1);
+// console.log(car1.drive(201));
+// console.log(car1);
 
 /*
   TASK 3
@@ -73,8 +97,7 @@ Car.prototype.fill = function (gallons){
 */
 
 function Baby(name, age, favoriteToy) {
-  this.name = name;
-  this.age = age;
+  Person.call(this, name, age);
   this.favoriteToy = favoriteToy;
 }
 
@@ -90,7 +113,7 @@ Baby.prototype.play = function (){
   In your own words explain the four principles for the "this" keyword below:
   1. Window or Global Binding - .this would bind to the global context in node or window in console
   2. Implicit Binding - invoking a method using dot syntax binds the object written out before the "." to .this and makes that object the context for .this in the method
-  3. Explicit Binding - using a function (.call, .appy or .bind) to directly lay out the context for .this
+  3. Explicit Binding - using a function (.call, .appy or .bind) to directly lay out the context for .this and pass in arguments
   4. New Binding - invoking a constructor function using the 'new' keyword binds .this to the newly created object returned from the constructor function
 */
 
